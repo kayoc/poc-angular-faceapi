@@ -24,7 +24,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
       this.acessoWebFrame = new AcessoWebFrame();
 
-      this.acessoWebFrame.onSuccessCaptureJS = this.onSuccessCapture.bind(this.onSuccessCapture);
+      this.acessoWebFrame.onSuccessCaptureJS = this.onSuccessCapture.bind(this);
       this.acessoWebFrame.onFailedCaptureJS = this.onFailedCapture.bind(this);
       this.acessoWebFrame.onBrowserNotSupportJS = this.onBrowserNotSupport.bind(this);
 
