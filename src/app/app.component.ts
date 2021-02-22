@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, NgZone } from '@angular/core';
 import {MatDialog, MatDialogConfig, MatDialogModule} from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ModalComponent } from './modal-component/modal.component';
@@ -15,7 +15,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   acessoWebFrame: any;
 
   constructor(private route: Router,
-             private matDialog: MatDialog) { }
+             private matDialog: MatDialog,
+             private zone: NgZone) { }
 
   ngOnInit() {
     //this.showDialog("Loucura...");
@@ -49,8 +50,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     };
 
     onSuccessCapture(obj: any) {
-        this.showDialog("Loucura...");
-        //this.showCompletedAnimation();
+        this.zone.run(() => {
+            this.showDialog("Sucesso!");
+            this.showCompletedAnimation();
+        });
         console.log(obj);
     }
 
@@ -67,7 +70,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     };
 
     showDialog(msg: string): void {
-
+        
         const dialogConfig = new MatDialogConfig();
         dialogConfig.data = {
             titulo: 'Ops! Tente novamente',
